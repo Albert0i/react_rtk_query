@@ -8,17 +8,21 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { useState } from "react"
+import PageButton from './PageButton'
 
 const TodoList = () => {
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(4)
     const [newTodo, setNewTodo] = useState('')
 
     const {
         data: todos,
+        totalCount,
         isLoading,
         isSuccess,
         isError,
         error
-    } = useGetTodosQuery()
+    } = useGetTodosQuery( { page, limit } )
     const [addTodo] = useAddTodoMutation()
     const [updateTodo] = useUpdateTodoMutation()
     const [deleteTodo] = useDeleteTodoMutation()
@@ -47,11 +51,28 @@ const TodoList = () => {
         </form>
 
 
-    let content;
+    let content, nav;    
     if (isLoading) {
         content = <p>Loading...</p>
     } else if (isSuccess) {
-        content = todos.map(todo => { //JSON.stringify(todos)
+        // Pagination 
+        //console.log(`totalCount=${todos.totalCount}`)
+        const total_pages = Math.ceil(todos.totalCount / limit)
+        //console.log(`total_pages=${total_pages}`)
+        const lastPage = () => setPage(total_pages)
+        const firstPage = () => setPage(1)
+        const pagesArray = Array(total_pages).fill().map((_, index) => index + 1)
+        nav = (
+            <nav className="nav-ex2">
+                <button onClick={firstPage} disabled={ page === 1}>&lt;&lt;</button>
+                {/* Removed isPreviousData from PageButton to keep button focus color instead */}
+                {pagesArray.map(pg => <PageButton key={pg} pg={pg} setPage={setPage} />)}
+                <button onClick={lastPage} disabled={page === total_pages}>&gt;&gt;</button>
+            </nav>
+        )
+        // 
+
+        content = todos.data.map(todo => { //JSON.stringify(todos)
             return (
                 <article key={todo.id}>
                     <div className="todo">
@@ -77,6 +98,7 @@ const TodoList = () => {
         <main>
             <h1>Todo List</h1>
             {newItemSection}
+            {nav}
             {content}
         </main>
     )

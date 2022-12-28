@@ -89,3 +89,22 @@ input[type="text"] {
 .submit:focus, .submit:hover {
   background-color: limegreen;
 }
+
+
+.nav-ex2 {
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.nav-ex2 button {
+  width: 20px;
+  height: auto;
+  margin: 0;
+  border: none;
+  border-right: 1px solid #000;
+  border-radius: 0;
+}
+
+.nav-ex2 button:focus {
+  background-color: orange;
+}
