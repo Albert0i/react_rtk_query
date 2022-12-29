@@ -11,6 +11,14 @@ If one can persist memory in a *vault*, *store* or some other devices so that on
 
 
 ## I. Install Redux Toolkit and React Redux
+First thing first, What is Redux?
+
+> **Redux is a pattern and library for managing and updating application state, using events called "actions".** It serves as a centralized store for state that needs to be used across your entire application, with rules ensuring that the state can only be updated in a predictable fashion.
+
+> Redux helps you manage "global" state - state that is needed across many parts of your application.
+
+> It's a trade-off between short term and long term productivity.
+
 [Redux](https://redux.js.org/) is the original *old school* state manager for react but now the creators of redux offer toolkit and on the redux website it says [redux toolkit](https://redux-toolkit.js.org/) is intended to be the standard way to write redux logic and we strongly recommended that you use it. So moving forward redux toolkit is the modern application of redux that you should learn how to implement. 
 
 ```bash
@@ -27,6 +35,15 @@ export default configureStore({
 reducer: {},
 })
 ```
+> A store is a JavaScript object with a few special functions and abilities that make it different than a plain global object:
+
+- You must never directly modify or change the state that is kept inside the Redux store
+
+- Instead, the only way to cause an update to the state is to create a plain **action** object that describes "something that happened in the application", and then **dispatch** the action to the store to tell it what happened.
+
+- When an action is dispatched, the store runs the root **reducer** function, and lets it calculate the new state based on the old state and the action
+
+- Finally, the store notifies **subscribers** that the state has been updated so the UI can be updated with the new data.
 
 
 ## III. Provide the Redux Store to React
@@ -174,7 +191,7 @@ If you use [useContext](https://blog.webdevsimplified.com/2020-06/use-context/) 
 4. [Redux Fundamentals, Part 1: Redux Overview](https://redux.js.org/tutorials/fundamentals/part-1-overview)
 5. [Redux Fundamentals, Part 2: Concepts and Data Flow](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow)
 6. [Redux Fundamentals, Part 3: State, Actions, and Reducers](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
-7. []
+7. [Redux Fundamentals](https://redux.js.org/tutorials/fundamentals/part-1-overview)
 
 
-## EOF (2022/12/26)
+## EOF (2022/12/30)
